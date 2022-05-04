@@ -4,5 +4,4 @@ data class WeatherInformation(
     val stationId: Int,
     val temperature: Float,
     val humidity: Float
-    ) {
-}
+)

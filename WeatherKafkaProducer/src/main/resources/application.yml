@@ -1,0 +1,10 @@
+kafka:
+  bootstrapAddress: "localhost:9092"
+  schema.registry.url: "localhost:8081"
+
+lab:
+  weather-topic: "weather"
+  station-topic: "stations"
+
+server:
+  port: 8080

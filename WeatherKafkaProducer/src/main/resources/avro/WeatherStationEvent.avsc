@@ -1,0 +1,10 @@
+{
+  "namespace" : "lab.weather",
+  "type" : "record",
+  "name" : "WeatherStationEvent",
+  "fields" : [
+    {"name":"stationId","type":"int"},
+    {"name":"name","type":"string"},
+    {"name":"location","type":"string"}
+  ]
+}
