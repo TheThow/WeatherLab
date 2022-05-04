@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>WeatherKafkaProducer</module>
+        <module>WeatherKafkaConsumer</module>
     </modules>
 
     <properties>
