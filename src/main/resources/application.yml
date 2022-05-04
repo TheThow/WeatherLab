@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: weather-producer
+  cloud:
+    stream:
+      kafka:
+        bindings:
+          output:
+            producer:
+              configuration:
+                key:
+                  serializer: org.apache.kafka.common.serialization.IntegerSerializer
+                value:
+                  serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                  subject:
+                    name:
+                      strategy: io.confluent.kafka.serializers.subject.RecordNameStrategy
+                schema:
+                  registry:
+                    url: http://localhost:8081
+      bindings:
+        output:
+          destination: weather
+          producer:
+            useNativeEncoding: true
+
+server:
+  port: 8080

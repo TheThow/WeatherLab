@@ -1,0 +1,10 @@
+{
+  "namespace" : "lab.weather",
+  "type" : "record",
+  "name" : "WeatherInformationEvent",
+  "fields" : [
+    {"name":"stationId","type":"int"},
+    {"name":"temperature","type":"float"},
+    {"name":"humidity","type":"float"}
+  ]
+}
