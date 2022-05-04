@@ -4,6 +4,7 @@ kafka:
 
 lab:
   weather-topic: "weather"
+  weather-processed-topic: "weather-processed"
   station-topic: "stations"
 
 server:

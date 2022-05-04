@@ -7,5 +7,6 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 class LabConfiguration(
     val weatherTopic: String,
+    val weatherProcessedTopic: String,
     val stationTopic: String
 )

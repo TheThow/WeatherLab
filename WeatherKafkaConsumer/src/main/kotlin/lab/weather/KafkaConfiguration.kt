@@ -2,8 +2,12 @@ package lab.weather
 
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig
 import io.confluent.kafka.serializers.KafkaAvroDeserializer
+import io.confluent.kafka.serializers.KafkaAvroSerializer
+import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+import lab.weather.data.WeatherInformation
 import org.apache.kafka.clients.admin.AdminClientConfig
 import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.Serdes
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.streams.StreamsConfig.*
@@ -23,6 +27,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer
 
 @Configuration
 @EnableKafka
+@EnableKafkaStreams
 open class KafkaConfiguration(val labConfiguration: LabConfiguration) {
 
     @Value(value = "\${kafka.bootstrapAddress}")
@@ -38,10 +43,11 @@ open class KafkaConfiguration(val labConfiguration: LabConfiguration) {
     @Bean(name = [KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME])
     open fun kStreamsConfig(): KafkaStreamsConfiguration? {
         val props: MutableMap<String, Any> = HashMap()
-        props[APPLICATION_ID_CONFIG] = "station-app"
+        props[APPLICATION_ID_CONFIG] = "weather-app"
         props[BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
         props[DEFAULT_KEY_SERDE_CLASS_CONFIG] = Serdes.String().javaClass.name
-        props[DEFAULT_VALUE_SERDE_CLASS_CONFIG] = JsonSerializer::class.java
+        props[DEFAULT_VALUE_SERDE_CLASS_CONFIG] = SpecificAvroSerde::class.java
+        props[AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG] = "http://localhost:8081"
         return KafkaStreamsConfiguration(props)
     }
 
@@ -49,7 +55,7 @@ open class KafkaConfiguration(val labConfiguration: LabConfiguration) {
     open fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, WeatherInformationEvent> {
         val factory: ConcurrentKafkaListenerContainerFactory<String, WeatherInformationEvent> =
             ConcurrentKafkaListenerContainerFactory<String, WeatherInformationEvent>()
-        factory.setConsumerFactory(consumerFactory())
+        factory.consumerFactory = consumerFactory()
         return factory
     }
 
