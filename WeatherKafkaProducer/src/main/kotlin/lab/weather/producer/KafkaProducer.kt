@@ -24,7 +24,8 @@ class KafkaProducer(val labConfiguration: LabConfiguration) {
             WeatherInformationEvent(
                 weather.stationId,
                 weather.temperature,
-                weather.humidity
+                weather.humidity,
+                weather.timestamp
             )
         )
     }

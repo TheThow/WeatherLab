@@ -29,7 +29,8 @@ class StreamConsumer(private val labConfiguration: LabConfiguration) {
                     tableEntry.name,
                     tableEntry.location,
                     weatherInfo.temperature,
-                    weatherInfo.humidity
+                    weatherInfo.humidity,
+                    weatherInfo.timestamp
                 )
             }
             .to(labConfiguration.weatherProcessedTopic)

@@ -5,6 +5,7 @@
   "fields" : [
     {"name":"stationId","type":"int"},
     {"name":"temperature","type":"float"},
-    {"name":"humidity","type":"float"}
+    {"name":"humidity","type":"float"},
+    {"name":"timestamp", "type":"long"}
   ]
 }

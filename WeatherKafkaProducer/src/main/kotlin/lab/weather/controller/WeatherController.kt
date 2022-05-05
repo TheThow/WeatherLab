@@ -6,14 +6,20 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.time.Instant
 
 @RestController
 @RequestMapping("/weather")
 class WeatherController(private val weatherService: WeatherService) {
 
     @PostMapping
-    fun save(@RequestBody order: WeatherInformation) {
-        return weatherService.save(order)
+    fun save(@RequestBody order: WeatherInformationRequest) {
+        return weatherService.save(WeatherInformation(
+            order.stationId,
+            order.temperature,
+            order.humidity,
+            Instant.now().toEpochMilli()
+        ))
     }
 
 }

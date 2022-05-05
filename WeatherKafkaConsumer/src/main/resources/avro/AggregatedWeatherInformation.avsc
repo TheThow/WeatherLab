@@ -7,6 +7,7 @@
     {"name":"name","type":"string"},
     {"name":"location","type":"string"},
     {"name":"temperature","type":"float"},
-    {"name":"humidity","type":"float"}
+    {"name":"humidity","type":"float"},
+    {"name":"timestamp", "type":"long"}
   ]
 }

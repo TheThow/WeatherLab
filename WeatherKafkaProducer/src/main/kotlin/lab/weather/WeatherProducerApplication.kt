@@ -9,7 +9,7 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 @EnableConfigurationProperties
 @ConfigurationPropertiesScan
-class WeatherProducerApplication
+open class WeatherProducerApplication
 
 fun main(args: Array<String>) {
     runApplication<WeatherProducerApplication>(*args)
