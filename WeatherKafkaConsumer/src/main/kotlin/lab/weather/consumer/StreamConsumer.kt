@@ -22,8 +22,7 @@ class StreamConsumer(private val labConfiguration: LabConfiguration) {
 
         val stream: KStream<String, WeatherInformationEvent> = streamsBuilder.stream(labConfiguration.weatherTopic)
 
-        stream.filter { id, weatherInformationEvent ->  weatherInformationEvent.temperature < 100}
-            .join(stationKTable
+        stream.join(stationKTable
             ) { weatherInfo, tableEntry ->
                 AggregatedWeatherInformationEvent(
                     tableEntry.stationId,
