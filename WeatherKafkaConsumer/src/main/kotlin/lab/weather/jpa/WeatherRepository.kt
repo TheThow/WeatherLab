@@ -15,4 +15,7 @@ interface WeatherRepository : CrudRepository<WeatherData, Long> {
     @Query("SELECT new lab.weather.data.LocationTemperature(location, avg(temperature)) from WeatherData GROUP BY location")
     fun getAverageTemps() : List<LocationTemperature>
 
+
+    @Query("SELECT avg(temperature) from WeatherData Where location = :#{#location} GROUP BY location")
+    fun getAverageTempsbyLocation(location: String) : Double
 }

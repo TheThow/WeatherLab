@@ -21,4 +21,10 @@ class WeatherStatisticsController(val weatherStatsService: WeatherStatsService) 
         return ResponseEntity.ok(mapper.writeValueAsString(temps))
     }
 
+    @GetMapping("temperature/{location}")
+    fun getAverageTemperaturebyLocation(@PathVariable location: String) : ResponseEntity<String> {
+        val temps = weatherStatsService.getAverageTempbyLocation(location)
+        return ResponseEntity.ok(mapper.writeValueAsString(temps))
+    }
+
 }

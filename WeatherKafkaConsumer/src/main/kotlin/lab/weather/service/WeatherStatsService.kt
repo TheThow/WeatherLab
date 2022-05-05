@@ -11,4 +11,8 @@ class WeatherStatsService(val weatherRepository: WeatherRepository) {
         return weatherRepository.getAverageTemps()
     }
 
+    fun getAverageTempbyLocation(location: String) : Double {
+        return weatherRepository.getAverageTempsbyLocation(location)
+    }
+
 }
