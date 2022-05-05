@@ -18,7 +18,7 @@ class WeatherController(private val weatherService: WeatherService) {
             order.stationId,
             order.temperature,
             order.humidity,
-            Instant.now().toEpochMilli()
+            order.timestamp ?: Instant.now().toEpochMilli()
         ))
     }
 
