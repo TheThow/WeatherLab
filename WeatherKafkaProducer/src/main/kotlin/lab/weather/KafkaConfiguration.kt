@@ -18,35 +18,35 @@ import org.springframework.kafka.core.ProducerFactory
 
 @Configuration
 @EnableKafka
-class KafkaConfiguration(val labConfiguration: LabConfiguration) {
+open class KafkaConfiguration(val labConfiguration: LabConfiguration) {
 
     @Value(value = "\${kafka.bootstrapAddress}")
     lateinit var bootstrapAddress: String
 
     @Bean
-    fun weatherTopic(): NewTopic {
+    open fun weatherTopic(): NewTopic {
         return NewTopic(labConfiguration.weatherTopic, 1, 1.toShort())
     }
 
     @Bean
-    fun stationTopic(): NewTopic {
+    open fun stationTopic(): NewTopic {
         return NewTopic(labConfiguration.stationTopic, 1, 1.toShort())
     }
 
     @Bean
-    fun kafkaAdmin(): KafkaAdmin {
+    open fun kafkaAdmin(): KafkaAdmin {
         val configs: MutableMap<String, Any> = HashMap()
         configs[AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapAddress
         return KafkaAdmin(configs)
     }
 
     @Bean
-    fun weatherProducerFactory(): ProducerFactory<String, WeatherInformationEvent> {
+    open fun weatherProducerFactory(): ProducerFactory<String, WeatherInformationEvent> {
         return DefaultKafkaProducerFactory<String, WeatherInformationEvent>(producerConfig());
     }
 
     @Bean
-    fun stationProducerFactory(): ProducerFactory<String, WeatherStationEvent> {
+    open fun stationProducerFactory(): ProducerFactory<String, WeatherStationEvent> {
         return DefaultKafkaProducerFactory<String, WeatherStationEvent>(producerConfig());
     }
 
@@ -60,12 +60,12 @@ class KafkaConfiguration(val labConfiguration: LabConfiguration) {
     }
 
     @Bean
-    fun weatherKafkaTemplate(): KafkaTemplate<String, WeatherInformationEvent> {
+    open fun weatherKafkaTemplate(): KafkaTemplate<String, WeatherInformationEvent> {
         return KafkaTemplate(weatherProducerFactory())
     }
 
     @Bean
-    fun stationKafkaTemplate(): KafkaTemplate<String, WeatherStationEvent> {
+    open fun stationKafkaTemplate(): KafkaTemplate<String, WeatherStationEvent> {
         return KafkaTemplate(stationProducerFactory())
     }
 }
